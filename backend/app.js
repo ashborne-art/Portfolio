@@ -93,8 +93,11 @@ const Portfolio = mongoose.model('Portfolio', PortfolioSchema);
 // Art Gallery route
 app.get('/api/artgallery', async (req, res) => {
   try {
-    const portfolio = await Portfolio.findOne().lean();
-    if (!portfolio || !portfolio.ArtGallery.length) {
+    const portfolio = await Portfolio.findById('68924a70287ddd7e7d40310b').lean();
+    if (!portfolio) {
+      return res.status(404).json({ message: 'Portfolio not found' });
+    }
+    if (!portfolio.ArtGallery || portfolio.ArtGallery.length === 0) {
       return res.status(404).json({ message: 'Art gallery not found' });
     }
     res.json(portfolio.ArtGallery);
@@ -103,6 +106,7 @@ app.get('/api/artgallery', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+
 
 // Certifications route
 app.get('/api/certifications', async (req, res) => {
