@@ -125,12 +125,20 @@ app.get('/api/skills', async (req, res) => {
     if (!portfolio || !portfolio.Skills) {
       return res.status(404).json({ message: 'No skills found' });
     }
-    res.json(portfolio.Skills);
+
+    const skills = portfolio.Skills;
+
+    res.json({
+      DevSkills: Array.isArray(skills.DevSkills) ? skills.DevSkills : [],
+      LangSkills: Array.isArray(skills.LangSkills) ? skills.LangSkills : [],
+      ToolsSkills: Array.isArray(skills.ToolsSkills) ? skills.ToolsSkills : [],
+    });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error' });
+    console.error('Error in /api/skills:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
+
 
 // Projects
 app.get('/api/projects', async (req, res) => {
