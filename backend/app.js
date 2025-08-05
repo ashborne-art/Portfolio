@@ -15,7 +15,7 @@ cloudinary.config({
   api_secret: process.env.API_SECRET,
 });
 
-// MongoDB connection
+// Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -23,30 +23,30 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.error('MongoDB connection error:', err));
 
-// Mongoose Schemas
+// Define Mongoose Schemas
 const { Schema } = mongoose;
 
-// ArtGallery: Only image upload
+// ArtGallery schema
 const ArtGallerySchema = new Schema({
   url: { type: String, required: true },
   public_id: { type: String, required: true }
 });
 
-// Skill item: Image and text
+// SkillItem schema
 const SkillItemSchema = new Schema({
   name: { type: String, required: true },
   url: { type: String, required: true },
   public_id: { type: String, required: true }
 });
 
-// Skills: Contains 3 categories
+// Skills schema
 const SkillsSchema = new Schema({
   DevSkills: [SkillItemSchema],
   LangSkills: [SkillItemSchema],
   ToolsSkills: [SkillItemSchema]
 });
 
-// Project Gallery: Images + description
+// Project gallery schema
 const ProjectGallerySchema = new Schema({
   images: [{
     url: { type: String, required: true },
@@ -55,7 +55,7 @@ const ProjectGallerySchema = new Schema({
   detailDescription: { type: String, required: true }
 });
 
-// Project: Two parts
+// Project schema
 const ProjectSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
@@ -64,14 +64,14 @@ const ProjectSchema = new Schema({
   gallery: ProjectGallerySchema
 });
 
-// Certification: Image + name
+// Certification schema
 const CertificationSchema = new Schema({
   name: { type: String, required: true },
   url: { type: String, required: true },
   public_id: { type: String, required: true }
 });
 
-// Final Portfolio schema
+// Portfolio schema
 const PortfolioSchema = new Schema({
   ArtGallery: [ArtGallerySchema],
   Skills: {
@@ -90,12 +90,12 @@ const Portfolio = mongoose.model('Portfolio', PortfolioSchema);
 
 // === API Routes ===
 
-// Art Gallery
+// Art Gallery route
 app.get('/api/artgallery', async (req, res) => {
   try {
     const portfolio = await Portfolio.findOne().lean();
-    if (!portfolio) {
-      return res.status(404).json({ message: 'Portfolio not found' });
+    if (!portfolio || !portfolio.ArtGallery.length) {
+      return res.status(404).json({ message: 'Art gallery not found' });
     }
     res.json(portfolio.ArtGallery);
   } catch (error) {
@@ -104,11 +104,11 @@ app.get('/api/artgallery', async (req, res) => {
   }
 });
 
-// Certifications
+// Certifications route
 app.get('/api/certifications', async (req, res) => {
   try {
     const portfolio = await Portfolio.findOne().lean();
-    if (!portfolio || !portfolio.Certifications) {
+    if (!portfolio || !portfolio.Certifications.length) {
       return res.status(404).json({ message: 'No certifications found' });
     }
     res.json(portfolio.Certifications);
@@ -118,33 +118,26 @@ app.get('/api/certifications', async (req, res) => {
   }
 });
 
-// Skills
+// Skills route
 app.get('/api/skills', async (req, res) => {
   try {
     const portfolio = await Portfolio.findOne().lean();
     if (!portfolio || !portfolio.Skills) {
       return res.status(404).json({ message: 'No skills found' });
     }
-
-    const skills = portfolio.Skills;
-
-    res.json({
-      DevSkills: Array.isArray(skills.DevSkills) ? skills.DevSkills : [],
-      LangSkills: Array.isArray(skills.LangSkills) ? skills.LangSkills : [],
-      ToolsSkills: Array.isArray(skills.ToolsSkills) ? skills.ToolsSkills : [],
-    });
+    const { DevSkills = [], LangSkills = [], ToolsSkills = [] } = portfolio.Skills;
+    res.json({ DevSkills, LangSkills, ToolsSkills });
   } catch (error) {
     console.error('Error in /api/skills:', error);
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
 
-
-// Projects
+// Projects route
 app.get('/api/projects', async (req, res) => {
   try {
     const portfolio = await Portfolio.findOne().lean();
-    if (!portfolio || !portfolio.Projects) {
+    if (!portfolio || !portfolio.Projects.length) {
       return res.status(404).json({ message: 'No projects found' });
     }
     res.json(portfolio.Projects);
