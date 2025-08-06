@@ -14,7 +14,7 @@ const Projects = ({ visibleCards = [] }) => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects`);
+        const res = await fetch('https://portfolio-v5tt.onrender.com/api/projects');
         const data = await res.json();
         setProjects(data);
         console.log('Fetched projects:', data);
