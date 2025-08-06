@@ -93,7 +93,7 @@ const Portfolio = mongoose.model('Portfolio', PortfolioSchema);
 // Art Gallery route
 app.get('/api/artgallery', async (req, res) => {
   try {
-    const portfolio = await Portfolio.findById('68924a70287ddd7e7d40310b').lean();
+    const portfolio = await Portfolio.findById('68924a712644828e6155aa09').lean();
     if (!portfolio) {
       return res.status(404).json({ message: 'Portfolio not found' });
     }
