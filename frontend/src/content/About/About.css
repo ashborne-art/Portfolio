@@ -1,0 +1,174 @@
+.card-horizontal {
+  display: flex;
+  position: relative;
+  background: rgb(36, 36, 36);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.147);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.88);
+  height: auto; /* Let height adjust based on content */
+  width: 100%;
+  max-width: 1200px; /* ⬅️ This controls the medium card size */
+  padding: 2rem;
+  margin: 2rem auto; /* Centered with margin */
+  overflow: hidden;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.card-horizontal:hover {
+  transform: scale(1.02);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+}
+
+.card-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding-right: 20px;
+  min-width: 260px;
+}
+
+
+.card-content p {
+  margin-top: 10rem;
+  text-align: left;
+  color: #fbfbfb !important;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 1.2rem;
+  width: 100%;
+  max-width: 350px;
+  height: 300px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.resume-btn {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  padding: 0.6rem 1.2rem;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.4);
+  z-index: 3;
+}
+
+
+.resume-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.card-img-right {
+  width: 400px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 12px; /* Was 300px — now 20px to keep visible */
+  border: 1px solid rgba(255, 255, 255, 0.147);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+  z-index: 2;
+}
+
+.card-horizontal:hover .card-img-right {
+  transform: scale(1.05) rotate(2deg);
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1024px) {
+  .card-img-right {
+    width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-horizontal {
+    flex-direction: column;
+    height: auto;
+    padding: 1.5rem;
+    min-width: unset;
+  }
+
+  .card-content {
+    padding-right: 0;
+    justify-content: flex-start;
+    text-align: left;
+    margin-bottom: 2rem;
+  }
+
+  .card-content p {
+    margin-top: 2rem;
+    font-size: 0.95rem;
+  }
+
+  .card-img-right {
+    position: relative;
+    width: 100%;
+    max-width: 90%;
+    margin: 0 auto;
+    bottom: unset;
+    right: unset;
+    border-radius: 16px;
+  }
+
+  .resume-btn {
+    position: static;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-horizontal {
+    flex-direction: column;
+    height: auto;
+    padding: 1.5rem;
+    min-width: unset;
+  }
+
+  .card-content {
+    padding-right: 0;
+    justify-content: flex-start;
+    text-align: left;
+    margin-bottom: 2rem;
+  }
+
+  .card-content p {
+    margin-top: 2rem;
+    font-size: 0.95rem;
+  }
+
+  .card-img-right {
+    position: relative;
+    width: 100%;
+    max-width: 90%;
+    margin: 0 auto;
+    bottom: unset;
+    right: unset;
+    border-radius: 16px;
+  }
+
+  .resume-btn {
+    position: static;
+    margin-top: 1rem;
+  }
+}
