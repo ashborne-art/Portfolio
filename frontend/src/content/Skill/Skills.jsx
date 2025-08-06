@@ -10,7 +10,7 @@ const Skills = () => {
   useEffect(() => {
     const fetchSkills = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/skills');
+        const res = await axios.get('https://portfolio-v5tt.onrender.com/api/skills');
         console.log('Skills API Response:', res.data);
 
         setDevSkills(Array.isArray(res.data.DevSkills) ? res.data.DevSkills : []);
