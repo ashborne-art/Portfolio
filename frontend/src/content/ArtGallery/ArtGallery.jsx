@@ -8,7 +8,7 @@ const ArtGallery = () => {
 
   useEffect(() => {
     // Fetch images from backend API
-    fetch(`${import.meta.env.VITE_API_URL}/api/artgallery`)
+    fetch('https://portfolio-v5tt.onrender.com/api/artgallery')
  // Adjust URL if needed
       .then(res => res.json())
       .then(data => {
