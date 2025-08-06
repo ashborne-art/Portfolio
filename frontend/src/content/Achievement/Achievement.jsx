@@ -78,7 +78,7 @@ const Achievement = () => {
     useEffect(() => {
         const fetchCertifications = async () => {
             try {
-                const response = await fetch(`${import.meta.env.VITE_API_URL}/api/certifications`);
+                const response = await fetch('https://portfolio-v5tt.onrender.com/api/certifications');
                 const data = await response.json();
                 setCertifications(data);
             } catch (error) {
