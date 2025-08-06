@@ -44,7 +44,7 @@ const Contact = () => {
 
       {/* Card 2 */}
       <div className="card">
-        <a href="https://www.instagram.com/awaizshaik25/" target="_blank" rel="noopener noreferrer" className="card-link">
+        <a href="https://github.com/shaik2501" target="_blank" rel="noopener noreferrer" className="card-link">
           <img
             src='https://res.cloudinary.com/dcm17uxik/image/upload/v1754319411/Best_27_Company_Culture_Decks_To_Copy_-_Tettra_fd8tmw.jpg'
             className='card-img'
@@ -55,7 +55,7 @@ const Contact = () => {
 
       {/* Card 3 */}
       <div className="card">
-        <a href="https://example.com/card3" target="_blank" rel="noopener noreferrer" className="card-link">
+        <a href="https://www.linkedin.com/in/awaiz-shaik-6307b1376" target="_blank" rel="noopener noreferrer" className="card-link">
           <img
             src='https://res.cloudinary.com/dcm17uxik/image/upload/v1754319256/Linkedin_aovjdg.jpg'
             className='card-img'
