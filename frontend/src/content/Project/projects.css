@@ -1,563 +1,284 @@
+/* projects.css */
+
 .achievements-grid {
-
-  display: grid;
-
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-
-  gap: 30px;
-
-  width: 100%;
-
-  min-width: 800px;
-
-  margin: 0 auto;
-
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 30px;
+  width: 100%;
+  min-width: 800px;
+  margin: 0 auto;
 }
-
-
 
 .achievement-card {
-
-  background: #1a1a1a;
-
-  border-radius: 12px;
-
-  overflow: hidden;
-
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-
-  border: 1px solid rgba(255, 255, 255, 0.08);
-
-  display: flex;
-
-  flex-direction: column;
-
-  position: relative;
-
-  cursor: pointer;
-
-  max-width: 400px; /* set max width */
-
-  margin: 0 auto; /* center within grid cell */
-
+  background: #1a1a1a;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  cursor: pointer;
+  max-width: 400px; /* set max width */
+  margin: 0 auto; /* center within grid cell */
 }
-
-
 
 .achievement-card.visible {
-
-  animation: fadeInUp 0.6s ease forwards;
-
+  animation: fadeInUp 0.6s ease forwards;
 }
-
-
 
 .achievement-card:hover {
-
-  transform: translateY(-8px);
-
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-
-  background: #252525;
-
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+  background: #252525;
 }
-
-
 
 .achievement-img {
-
-  height: 180px;
-
-  width: 100%;
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  color: white;
-
-  font-size: 3.5rem;
-
-  overflow: hidden;
-
-  position: relative;
-
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-
-  transition: all 0.4s ease;
-
+  height: 180px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 3.5rem;
+  overflow: hidden;
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.4s ease;
 }
-
-
 
 .achievement-card:hover .achievement-img {
-
-  height: 160px;
-
+  height: 160px;
 }
-
-
 
 .achievement-img::before {
-
-  content: '';
-
-  position: absolute;
-
-  top: 0;
-
-  left: 0;
-
-  width: 100%;
-
-  height: 100%;
-
-  background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0) 100%);
-
-  opacity: 0;
-
-  transition: opacity 0.3s ease;
-
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
-
-
 
 .achievement-card:hover .achievement-img::before {
-
-  opacity: 1;
-
+  opacity: 1;
 }
-
-
 
 .achievement-img i {
-
-  position: absolute;
-
-  top: 15px;
-
-  right: 15px;
-
-  color: rgba(255, 255, 255, 0.8);
-
-  background-color: rgba(255, 255, 255, 0.021);
-
-  padding: 8px;
-
-  border-radius: 8px;
-
-  font-size: 2.5rem;
-
-  transition: all 0.3s ease;
-
-  z-index: 2;
-
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.021);
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 2.5rem;
+  transition: all 0.3s ease;
+  z-index: 2;
 }
-
-
 
 .achievement-card:hover .achievement-img i {
-
-  transform: scale(1.1) rotate(5deg);
-
-  background-color: rgba(78, 205, 196, 0.8);
-
-  color: #fff;
-
+  transform: scale(1.1) rotate(5deg);
+  background-color: rgba(78, 205, 196, 0.8);
+  color: #fff;
 }
-
-
 
 .achievement-content {
-
-  padding: 20px 25px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: space-between;
-
-  flex-grow: 1;
-
-  transition: all 0.3s ease;
-
+  padding: 20px 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+  transition: all 0.3s ease;
 }
-
-
 
 .achievement-card:hover .achievement-content {
-
-  transform: translateY(-5px);
-
+  transform: translateY(-5px);
 }
-
-
 
 .achievement-content h3 {
-
-  font-size: 1.6rem;
-
-  margin-bottom: 10px;
-
-  color: #ffffff;
-
-  transition: color 0.3s ease;
-
-  position: relative;
-
-  display: inline-block;
-
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+  color: #ffffff;
+  transition: color 0.3s ease;
+  position: relative;
+  display: inline-block;
 }
-
-
 
 .achievement-content h3::after {
-
-  content: '';
-
-  position: absolute;
-
-  bottom: -5px;
-
-  left: 0;
-
-  width: 0;
-
-  height: 2px;
-
-  background: #4ecdc4;
-
-  transition: width 0.3s ease;
-
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #4ecdc4;
+  transition: width 0.3s ease;
 }
-
-
 
 .achievement-card:hover .achievement-content h3::after {
-
-  width: 100%;
-
+  width: 100%;
 }
-
-
 
 .achievement-card:hover .achievement-content h3 {
-
-  color: #4ecdc4;
-
+  color: #4ecdc4;
 }
-
-
 
 .achievement-content p {
-
-  color: #b0b0b0;
-
-  font-size: 1rem;
-
-  text-align: left;
-
-  line-height: 1.5;
-
-  margin-bottom: 20px;
-
-  flex-grow: 1;
-
-  transition: color 0.3s ease;
-
+  color: #b0b0b0;
+  font-size: 1rem;
+  text-align: left;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  flex-grow: 1;
+  transition: color 0.3s ease;
 }
-
-
 
 .achievement-card:hover .achievement-content p {
-
-  color: #d0d0d0;
-
+  color: #d0d0d0;
 }
-
-
 
 /* New styles for aligning buttons */
-
 .project-actions {
-
-  display: flex;
-
-  gap: 10px; /* Adjust gap as needed for spacing between buttons */
-
-  margin-top: auto; /* Pushes the buttons to the bottom */
-
+  display: flex;
+  gap: 10px; /* Adjust gap as needed for spacing between buttons */
+  margin-top: auto; /* Pushes the buttons to the bottom */
 }
-
-
 
 .logogit-link {
-
-  /* align-self: flex-start; Removed this as the parent div now handles alignment */
-
-  display: inline-flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  padding: 5px 5px;
-
-  background-color: rgba(255, 255, 255, 0.1);
-
-  border-radius: 8px;
-
-  border: 1px solid rgba(255, 255, 255, 0.1);
-
-  transition: all 0.3s ease;
-
-  text-decoration: none;
-
-  color: #b0b0b0;
-
-  font-weight: 500;
-
-  flex: 1; /* Make buttons take equal width if space allows */
-
+  /* align-self: flex-start; Removed this as the parent div now handles alignment */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 5px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: #b0b0b0;
+  font-weight: 500;
+  flex: 1; /* Make buttons take equal width if space allows */
 }
-
-
 
 .logogit-link:hover {
-
-  background-color: rgba(78, 205, 196, 0.3);
-
-  border-color: #4ecdc4;
-
-  transform: translateY(-3px) scale(1.02);
-
-  color: #fff;
-
-  box-shadow: 0 5px 15px rgba(78, 205, 196, 0.2);
-
+  background-color: rgba(78, 205, 196, 0.3);
+  border-color: #4ecdc4;
+  transform: translateY(-3px) scale(1.02);
+  color: #fff;
+  box-shadow: 0 5px 15px rgba(78, 205, 196, 0.2);
 }
-
-
 
 .logogit {
-
-  width: 28px;
-
-  height: 28px;
-
-  border-radius: 4px;
-
-  margin-right: 8px;
-
-  transition: transform 0.3s ease;
-
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  margin-right: 8px;
+  transition: transform 0.3s ease;
 }
-
-
 
 .logogit-link:hover .logogit {
-
-  transform: rotate(10deg) scale(1.1);
-
+  transform: rotate(10deg) scale(1.1);
 }
-
-
 
 @keyframes fadeInUp {
-
-  from {
-
-    opacity: 0;
-
-    transform: translateY(20px);
-
-  }
-
-  to {
-
-    opacity: 1;
-
-    transform: translateY(0);
-
-  }
-
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-
-
 
 /* Add a subtle pulse animation for the card when it's visible */
-
 @keyframes subtlePulse {
-
-  0% { transform: scale(1); }
-
-  50% { transform: scale(1.02); }
-
-  100% { transform: scale(1); }
-
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
 }
-
-
 
 .achievement-card.visible {
-
-  animation: fadeInUp 0.6s ease forwards, subtlePulse 1.5s ease 0.6s forwards;
-
+  animation: fadeInUp 0.6s ease forwards, subtlePulse 1.5s ease 0.6s forwards;
 }
-
 .overlay {
-
-  position: fixed;
-
-  top: 0;
-
-  left: 0;
-
-  width: 100%;
-
-  height: 100%;
-
-  background-color: rgba(0, 0, 0, 0.85);
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  z-index: 999;
-
-  display: flex;
-
-  justify-content: center;
-
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
 }
-
-
 
 .overlay-content {
+  position: relative;
+  padding: 2rem;
+  width: 80%;
+  max-width: 1000px;
+  border-radius: 12px;
+  animation: fadeIn 0.3s ease-in-out;
 
-  position: relative;
-
-  padding: 2rem;
-
-  width: 80%;
-
-  max-width: 1000px;
-
-  border-radius: 12px;
-
-  animation: fadeIn 0.3s ease-in-out;
-
-
-
-  /* Gradient border via background layers */
-
-  background:
-
-    linear-gradient(#0d0c0c, #485563) padding-box, /* Inner background */
-
-    linear-gradient(to top left,  #000000,#2f5552) border-box; /* Border gradient */
-
-  border: 2px solid transparent;
-
-  background-origin: border-box;
-
-  background-clip: padding-box, border-box;
-
+  /* Gradient border via background layers */
+  background:
+    linear-gradient(#0d0c0c, #485563) padding-box, /* Inner background */
+    linear-gradient(to top left,  #000000,#2f5552) border-box; /* Border gradient */
+  border: 2px solid transparent;
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
 }
-
-
-
 
 
 .close-button {
-
-  position: absolute;
-
-  top: 1rem;
-
-  right: 1rem;
-
-  font-size: 2rem;
-
-  border: none;
-
-  background: transparent;
-
-  cursor: pointer;
-
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
 }
-
-
 
 .swiper-container {
-
-  margin-top: 1rem;
-
+  margin-top: 1rem;
 }
-
-
 
 .swiper-img {
-
-  width: 100%;
-
-  border-radius: 8px;
-
-  height: 400px;
-
-  object-fit: cover;
-
+  width: 100%;
+  border-radius: 8px;
+  height: 400px;
+  object-fit: cover;
 }
-
-
 
 @keyframes fadeIn {
-
-  from { opacity: 0; transform: scale(0.95); }
-
-  to { opacity: 1; transform: scale(1); }
-
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
-
 .close-button {
-
-  position: absolute;
-
-  top: 16px;
-
-  right: 20px;
-
-  font-size: 2rem;
-
-  font-weight: bold;
-
-  color: #333;
-
-  background: transparent;
-
-  border: none;
-
-  cursor: pointer;
-
-  transition: transform 0.2s ease, color 0.2s ease;
-
-  z-index: 1001;
-
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+  z-index: 1001;
 }
-
-
 
 .close-button:hover {
-
-  color: #e11d48;
-
-  transform: scale(1.2);
-
-} 
+  color: #e11d48;
+  transform: scale(1.2);
+}
