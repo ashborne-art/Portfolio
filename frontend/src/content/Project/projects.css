@@ -19,6 +19,7 @@
   position: relative;
   cursor: pointer;
   max-width: 400px;
+  min-width: 300px;
   margin: 0 auto;
 }
 
@@ -48,41 +49,6 @@
 
 .achievement-card:hover .achievement-img {
   height: 160px;
-}
-
-.achievement-img::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0) 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.achievement-card:hover .achievement-img::before {
-  opacity: 1;
-}
-
-.achievement-img i {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  color: rgba(255, 255, 255, 0.8);
-  background-color: rgba(255, 255, 255, 0.021);
-  padding: 8px;
-  border-radius: 8px;
-  font-size: 2.5rem;
-  transition: all 0.3s ease;
-  z-index: 2;
-}
-
-.achievement-card:hover .achievement-img i {
-  transform: scale(1.1) rotate(5deg);
-  background-color: rgba(78, 205, 196, 0.8);
-  color: #fff;
 }
 
 .achievement-content {
@@ -202,75 +168,268 @@
   animation: fadeInUp 0.6s ease forwards, subtlePulse 1.5s ease 0.6s forwards;
 }
 
+/* Overlay Styles */
+/* Overlay Background */
+/* Base and Desktop Styles */
+/* ---------------------------------- */
+
 .overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.85);
+  inset: 0;
+  background: rgba(10, 10, 10, 0.95);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
+  z-index: 9999;
+  backdrop-filter: blur(12px);
 }
 
-.overlay-content {
+.overlay-card {
+  width: 90vw; /* Use viewport width for flexibility */
+  max-width: 1500px;
+  height: 90vh; /* Use viewport height for flexibility */
+  max-height: 800px;
+  background: linear-gradient(145deg, #121212, #1a1a1a);
+  border-radius: 20px;
+  display: flex;
+  padding: 30px;
+  gap: 30px;
   position: relative;
-  padding: 2rem;
-  width: 95%;
-  max-width: 1400px; /* ⬅️ Increased max width */
-  border-radius: 12px;
-  animation: fadeIn 0.3s ease-in-out;
-
-  background:
-    linear-gradient(#0d0c0c, #485563) padding-box,
-    linear-gradient(to top left, #000000, #2f5552) border-box;
-  border: 2px solid transparent;
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.7),
+    inset 0 0 15px #3e3e3e;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #ddd;
+  user-select: none;
+  transition: transform 0.3s ease;
 }
 
-/* Responsive overlay content */
-@media (max-width: 768px) {
-  .overlay-content {
-    width: 95%;
-    max-width: 95%;
-    padding: 1.5rem;
+.overlay-card:hover {
+  transform: scale(1.02);
+}
+
+.overlay-close {
+  position: absolute;
+  top: 18px;
+  right: 25px;
+  background: transparent;
+  border: none;
+  font-size: 34px;
+  font-weight: 900;
+  cursor: pointer;
+  color: #e10000;
+  transition: color 0.25s ease;
+  z-index: 10;
+}
+
+.overlay-close:hover {
+  color: #282b2a;
+}
+
+.overlay-images-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 45%;
+  height: 100%;
+  overflow-y: auto;
+  padding-right: 14px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+  box-shadow: inset -8px 0 12px -8px rgba(78, 205, 196, 0.6);
+  border-radius: 18px;
+  background: #0d0d0d;
+}
+
+.overlay-images-vertical::-webkit-scrollbar {
+  display: none;
+}
+
+.overlay-image-vertical {
+  width: 100%;
+  height: 230px;
+  border-radius: 14px;
+  object-fit: cover;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.3));
+}
+
+.overlay-image-vertical:hover {
+  transform: scale(1.06);
+  box-shadow: 0 10px 25px rgba(57, 59, 59, 0.8);
+  filter: drop-shadow(0 4px 6px rgba(78, 205, 196, 0.6));
+}
+
+.overlay-right {
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #1c1c1c, #111);
+  border-radius: 18px;
+  padding: 30px 40px;
+  box-shadow: inset 0 0 30px #26cfcf33;
+  overflow-y: auto;
+  color: #eee;
+  user-select: text;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.overlay-title {
+  text-align: center;
+  font-size: 38px;
+  font-weight: 900;
+  color: #f2f2f2;
+  margin-bottom: 24px;
+  text-shadow: 0 0 8px #333535aa;
+}
+
+.overlay-description {
+  flex: 1;
+  white-space: pre-wrap;
+  overflow-y: auto;
+  padding-right: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #696969 #222;
+}
+
+.overlay-description::-webkit-scrollbar {
+  width: 8px;
+}
+
+.overlay-description::-webkit-scrollbar-thumb {
+  background-color: #4c4d4dcc;
+  border-radius: 6px;
+}
+
+.overlay-description::-webkit-scrollbar-track {
+  background-color: #111;
+}
+
+.overlay-right ::selection {
+  background: #3d3f3faa;
+  color: #111;
+}
+
+/* Tablet and smaller desktop screens */
+/* ---------------------------------- */
+
+@media (max-width: 1200px) {
+  .overlay-card {
+    width: 95vw;
+    height: 95vh;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+    overflow-y: auto;
+  }
+
+  .overlay-images-vertical {
+    width: 100%;
+    height: auto;
+    max-height: 40vh; /* Adjust max height for image gallery */
+    flex-direction: row;
+    overflow-y: hidden;
+    overflow-x: auto;
+    padding: 10px;
+    gap: 10px;
+    box-shadow: inset 0 -8px 12px -8px rgba(78, 205, 196, 0.6);
+  }
+  
+  .overlay-images-vertical::-webkit-scrollbar {
+    display: block;
+    height: 8px;
+  }
+
+  .overlay-images-vertical::-webkit-scrollbar-thumb {
+    background-color: #4c4d4dcc;
+    border-radius: 6px;
+  }
+
+  .overlay-images-vertical::-webkit-scrollbar-track {
+    background-color: #111;
+  }
+
+  .overlay-image-vertical {
+    width: 250px; /* Fixed width for horizontal scrolling images */
+    flex-shrink: 0;
+    height: 180px;
+  }
+
+  .overlay-right {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    box-shadow: inset 0 0 20px #26cfcf33;
+  }
+
+  .overlay-title {
+    font-size: 32px;
+    margin-bottom: 16px;
   }
 }
 
-.close-button {
-  position: absolute;
-  top: 16px;
-  right: 20px;
-  font-size: 2rem;
-  font-weight: bold;
-  color: #333;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s ease, color 0.2s ease;
-  z-index: 1001;
+/* Mobile screens */
+/* ---------------------------------- */
+
+@media (max-width: 768px) {
+  .overlay-card {
+    flex-direction: column;
+    padding: 15px;
+    gap: 15px;
+    overflow-y: auto;
+  }
+
+  .overlay-images-vertical {
+    max-height: 30vh; /* Further adjust height for smaller screens */
+    padding: 8px;
+    gap: 8px;
+  }
+  
+  .overlay-image-vertical {
+    width: 200px;
+    height: 150px;
+  }
+
+  .overlay-right {
+    padding: 15px;
+  }
+
+  .overlay-title {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+
+  .overlay-close {
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+  }
+}
+.tech-stack-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
 }
 
-.close-button:hover {
-  color: #e11d48;
-  transform: scale(1.2);
+.tech-box {
+  background-color: #1e293b; /* dark slate */
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
+  transition: background 0.2s ease;
 }
 
-.swiper-container {
-  margin-top: 1rem;
-}
-
-.swiper-img {
-  width: 100%;
-  border-radius: 8px;
-  height: 400px;
-  object-fit: cover;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+.tech-box:hover {
+  background-color: #3b82f6; /* blue on hover */
+  cursor: default;
 }
