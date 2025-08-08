@@ -381,6 +381,7 @@
   .overlay-card {
     flex-direction: column;
     padding: 15px;
+    margin-top:5rem;
     gap: 15px;
     overflow-y: auto;
   }
