@@ -1,107 +1,97 @@
 import React, { useState, useEffect } from 'react';
 import './projects.css';
 import { GrOverview } from "react-icons/gr";
+import { FiGithub, FiExternalLink } from "react-icons/fi";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
+import { Autoplay, Navigation, EffectFade } from 'swiper/modules';
 import 'swiper/css';
+import 'swiper/css/effect-fade';
+import 'swiper/css/navigation';
 
-const Projects = ({ visibleCards = [] }) => {
-  const [projects, setProjects] = useState([]);
-  const [hoveredCard, setHoveredCard] = useState(null);
-  const [expandedProject, setExpandedProject] = useState(null);
+const Projects = () => {
+  const [projects, setProjects] = useState([]);
+  const [hoveredCard, setHoveredCard] = useState(null);
+  const [expandedProject, setExpandedProject] = useState(null);
+  const [isClosing, setIsClosing] = useState(false);
 
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const res = await fetch('https://portfolio-v5tt.onrender.com/api/projects');
-        
-        // ✅ 1. Check if the response is successful
-        if (!res.ok) {
-          console.error('Server responded with an error:', res.status, res.statusText);
-          // Optionally, handle different errors. For a 404, you might just set projects to an empty array.
-          setProjects([]);
-          return; // Exit the function to prevent further errors
-        }
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await fetch('https://portfolio-v5tt.onrender.com/api/projects');
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        const data = await res.json();
+        setProjects(data);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
+    };
+    fetchProjects();
+  }, []);
 
-        const data = await res.json();
+  const closeOverlay = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setExpandedProject(null);
+      setIsClosing(false);
+    }, 300);
+  };
 
-        // ✅ 2. Check if the received data is an array
-        if (Array.isArray(data)) {
-          setProjects(data);
-          console.log('Fetched projects:', data);
-        } else {
-          console.error('Received data is not an array:', data);
-          setProjects([]); // Fallback to an empty array
-        }
-      } catch (err) {
-        // This block handles network errors or errors from res.json()
-        console.error('Error fetching projects:', err);
-        setProjects([]); // Ensure state is an empty array on error
-      }
-    };
-    fetchProjects();
-  }, []);
+  return (
+    <div className="project-section">
+      <p>Some of my featured projects and recognitions.</p>
+      <div className="achievements-grid">
+        {projects.map((item, idx) => (
+          <div
+            key={item._id}
+            className={`achievement-card visible`}
+            style={{ animationDelay: `${idx * 0.1}s` }}
+            onMouseEnter={() => setHoveredCard(item._id)}
+            onMouseLeave={() => setHoveredCard(null)}
+            onClick={() => setExpandedProject(item)}
+          >
+            <div
+              className="achievement-img"
+              style={{
+                backgroundImage: `linear-gradient(rgba(0,0,0,${hoveredCard === item._id ? 0.5 : 0.3}), rgba(0,0,0,${hoveredCard === item._id ? 0.7 : 0.5})), url(${item.imageUrl})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}
+            />
+            <div className="achievement-content">
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </div>
+              <div className="project-actions">
+                <a
+                  href={item.projectLink || "#"}
+                  className="logogit-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <FiExternalLink className="logogit" />
+                  <span>Live Demo</span>
+                </a>
+                <button
+                  className="logogit-link"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setExpandedProject(item);
+                  }}
+                >
+                  <GrOverview />
+                  <span>Details</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
 
-  return (
-    <div className="project-section">
-      <p>Some of my featured projects and recognitions.</p>
-      <div className="achievements-grid">
-        {projects.map((item, idx) => (
-          <div
-            key={item._id}
-            className="achievement-card visible"
-            style={{ animationDelay: `${idx * 0.1}s`, cursor: 'pointer' }}
-            onMouseEnter={() => setHoveredCard(item._id)}
-            onMouseLeave={() => setHoveredCard(null)}
-            onClick={() => setExpandedProject(item)}
-          >
-            <div
-              className="achievement-img"
-              style={{
-                backgroundImage: `linear-gradient(rgba(0,0,0,${hoveredCard === item._id ? 0.5 : 0.3}), rgba(0,0,0,${hoveredCard === item._id ? 0.7 : 0.5})), url(${item.imageUrl})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat'
-              }}
-            />
-            <div className="achievement-content">
-              <div>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-              </div>
-              <div className="project-actions">
-                <a
-                  href={item.projectLink || "#"}
-                  className="logogit-link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <img
-                    src='https://res.cloudinary.com/dcm17uxik/image/upload/v1748869058/icons8-github-96_mqgltx.png'
-                    className='logogit'
-                    alt="GitHub"
-                  />
-                  <span>View Project</span>
-                </a>
-                <button
-                  className="logogit-link"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setExpandedProject(item);
-                  }}
-                  aria-label="Project Overview"
-                >
-                  <GrOverview />
-                  <span>_Overview</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {expandedProject && (
+      {expandedProject && (
         <div className="overlay" onClick={closeOverlay}>
           <div
             className="overlay-card"
@@ -144,9 +134,9 @@ const Projects = ({ visibleCards = [] }) => {
             </div>
           </div>
         </div>
-      )}
-    </div>
-  );
+      )}
+    </div>
+  );
 };
 
 export default Projects;
