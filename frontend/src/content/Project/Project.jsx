@@ -102,42 +102,48 @@ const Projects = ({ visibleCards = [] }) => {
       </div>
 
       {expandedProject && (
-        <div className="overlay" role="dialog" aria-modal="true">
-          <div className="overlay-content">
-            <button
-              className="close-button"
-              onClick={() => setExpandedProject(null)}
-              aria-label="Close overlay"
-            >
-              &times;
-            </button>
-            <div className="content-wrapper">
-              <div className="image-section">
-               <Swiper
-                  spaceBetween={10}
-                  slidesPerView={1}
-                  autoplay={{
-                    delay: 1000,
-                    disableOnInteraction: false,
-                  }}
-                  modules={[Autoplay]}
-                  className="swiper-container"
-                >
-                  {/* Check if expandedProject and its gallery/images exist */}
-                  {expandedProject.gallery?.images?.map((img, index) => (
-                    <SwiperSlide key={index}>
-                      <img src={img.url} alt={`Slide ${index + 1}`} className="swiper-img" />
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </div>
-              <div className="text-section">
-                <h2>{expandedProject.title}</h2>
-                <p>{expandedProject.gallery?.detailDescription}</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div className="overlay" onClick={closeOverlay}>
+          <div
+            className="overlay-card"
+            style={{ width: '1500px', height: '800px' }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close button */}
+            <button className="overlay-close" onClick={closeOverlay}>
+              &times;
+            </button>
+
+            {/* Left Side - Images */}
+            <div className="overlay-images-vertical">
+              {expandedProject.gallery?.images?.slice(0, 3).map((img, idx) => (
+                <img
+                  key={idx}
+                  src={img.url}
+                  alt={`Preview ${idx + 1}`}
+                  className="overlay-image-vertical"
+                />
+              ))}
+            </div>
+
+            {/* Right Side - Title & Description */}
+            <div className="overlay-right">
+              <h2 className="overlay-title">{expandedProject.title}</h2>
+              <div className="overlay-description">
+                <p>{expandedProject.gallery?.detailDescription}</p>
+              </div>
+              <div>
+                 <div className="tech-stack-container">
+  {expandedProject.techStack?.map((tech, idx) => (
+    <span key={idx} className="tech-box">
+      {tech}
+    </span>
+  ))}
+</div>
+
+                </div>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
